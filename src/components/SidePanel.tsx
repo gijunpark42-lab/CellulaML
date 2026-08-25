@@ -4,6 +4,8 @@ import type { DatasetMeta } from "../lib/h5ad/types";
 import type { ScalarScale } from "../lib/viewer/colormap";
 import Colorbar from "./Colorbar";
 import GeneSearch from "./GeneSearch";
+import MarkerTable from "./MarkerTable";
+import type { MarkerResult } from "../lib/stats/markers";
 
 interface LegendItem {
   name: string;
@@ -21,6 +23,10 @@ interface Props {
   gene: string | null;
   onGene: (name: string | null) => void;
   geneScale: ScalarScale | null;
+  nSelected: number;
+  onClearSelection: () => void;
+  markers: MarkerResult | null;
+  computing: boolean;
   legend: LegendItem[];
   onReset: () => void;
 }
@@ -94,6 +100,24 @@ export default function SidePanel(p: Props) {
           </div>
         )}
       </section>
+
+      {p.nSelected > 0 && (
+        <section>
+          <div className="mb-1 flex items-baseline">
+            <h2 className={H2}>Selection</h2>
+            <span className="ml-2 text-xs text-zinc-400">{p.nSelected.toLocaleString()} cells</span>
+            <button
+              type="button"
+              onClick={p.onClearSelection}
+              className="ml-auto text-xs text-zinc-500 underline underline-offset-2 hover:text-zinc-300"
+            >
+              clear
+            </button>
+          </div>
+          <p className="mb-1 text-xs text-zinc-500">genes higher in selection vs rest (Wilcoxon)</p>
+          <MarkerTable result={p.markers} computing={p.computing} onGene={(g) => p.onGene(g)} />
+        </section>
+      )}
 
       {p.legend.length > 0 && (
         <section>

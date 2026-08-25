@@ -2,14 +2,17 @@
 import h5wasm from "h5wasm";
 import { parseH5ad } from "../lib/h5ad/parse";
 import { geneColumn } from "../lib/h5ad/matrix";
+import { computeMarkers, type MarkerResult } from "../lib/stats/markers";
 import type { Dataset, DatasetMeta } from "../lib/h5ad/types";
 
 export type WorkerRequest =
   | { type: "load"; buffer: ArrayBuffer; name: string }
-  | { type: "gene"; index: number; requestId: number };
+  | { type: "gene"; index: number; requestId: number }
+  | { type: "markers"; selected: Uint32Array; requestId: number };
 export type WorkerResponse =
   | { type: "loaded"; meta: DatasetMeta; ms: number }
   | { type: "gene"; index: number; requestId: number; values: Float32Array }
+  | { type: "markers"; requestId: number; result: MarkerResult; ms: number }
   | { type: "error"; message: string };
 
 /** The full dataset (including X) lives here; the UI only ever sees DatasetMeta. */
@@ -26,6 +29,17 @@ self.onmessage = async (ev: MessageEvent<WorkerRequest>) => {
     const values =
       current?.X ? geneColumn(current.X, req.index) : new Float32Array(current?.nCells ?? 0);
     post({ type: "gene", index: req.index, requestId: req.requestId, values }, [values.buffer]);
+    return;
+  }
+  if (req.type === "markers") {
+    const t0 = performance.now();
+    let result: MarkerResult = { nSelected: 0, nTested: 0, up: [] };
+    try {
+      if (current) result = computeMarkers(current, req.selected);
+    } catch (err) {
+      console.error("[cellulaML worker] markers failed:", err);
+    }
+    post({ type: "markers", requestId: req.requestId, result, ms: performance.now() - t0 });
     return;
   }
   if (req.type !== "load") return;

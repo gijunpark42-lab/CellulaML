@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { summarize, type DatasetMeta } from "../lib/h5ad/types";
+import type { MarkerResult } from "../lib/stats/markers";
 import type { WorkerRequest, WorkerResponse } from "../workers/parser.worker";
 import DropZone from "./DropZone";
 import Viewer from "./Viewer";
@@ -17,6 +18,7 @@ export default function App() {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const geneReq = useRef(0);
   const geneResolvers = useRef(new Map<number, (v: Float32Array) => void>());
+  const markerResolvers = useRef(new Map<number, (r: MarkerResult) => void>());
 
   useEffect(() => {
     const w = new Worker(new URL("../workers/parser.worker.ts", import.meta.url));
@@ -34,6 +36,12 @@ export default function App() {
       if (r.type === "gene") {
         geneResolvers.current.get(r.requestId)?.(r.values);
         geneResolvers.current.delete(r.requestId);
+        return;
+      }
+      if (r.type === "markers") {
+        console.log(`[cellulaML] markers: ${r.result.nSelected} cells, ${r.result.nTested} genes, ${r.ms.toFixed(0)} ms`);
+        markerResolvers.current.get(r.requestId)?.(r.result);
+        markerResolvers.current.delete(r.requestId);
         return;
       }
       if (r.type === "loaded") {
@@ -61,6 +69,17 @@ export default function App() {
     });
   }, []);
 
+  const fetchMarkers = useCallback((selected: Uint32Array) => {
+    return new Promise<MarkerResult>((resolve) => {
+      const w = workerRef.current;
+      if (!w) return resolve({ nSelected: 0, nTested: 0, up: [] });
+      const requestId = ++geneReq.current;
+      markerResolvers.current.set(requestId, resolve);
+      const req: WorkerRequest = { type: "markers", selected, requestId };
+      w.postMessage(req);
+    });
+  }, []);
+
   const loadDemo = useCallback(async () => {
     const res = await fetch("/demo/pbmc3k_small.h5ad");
     const blob = await res.blob();
@@ -73,6 +92,7 @@ export default function App() {
         meta={status.meta}
         fileName={status.name}
         fetchGene={fetchGene}
+        fetchMarkers={fetchMarkers}
         onReset={() => setStatus({ kind: "idle" })}
       />
     );

@@ -2,17 +2,28 @@
 
 import { useEffect, useRef } from "react";
 import { ScatterGL, fitView, type View } from "../lib/viewer/ScatterGL";
+import { selectInPolygon } from "../lib/viewer/lasso";
 
 interface Props {
   xy: Float32Array;
   rgb: Float32Array;
   /** bump to refit the view (e.g. when the embedding changes) */
   fitKey: string;
+  /** when true, dragging draws a lasso instead of panning */
+  lasso: boolean;
+  onLasso: (indices: Uint32Array) => void;
 }
 
 /** WebGL scatter with drag-to-pan and wheel-to-zoom. Double-click resets the view. */
-export default function ScatterView({ xy, rgb, fitKey }: Props) {
+export default function ScatterView({ xy, rgb, fitKey, lasso, onLasso }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const overlayRef = useRef<HTMLCanvasElement>(null);
+  const lassoRef = useRef(lasso);
+  const onLassoRef = useRef(onLasso);
+  useEffect(() => {
+    lassoRef.current = lasso;
+    onLassoRef.current = onLasso;
+  }, [lasso, onLasso]);
   const glRef = useRef<ScatterGL | null>(null);
   const viewRef = useRef<View>({ cx: 0, cy: 0, unitsPerPx: 1 });
   const rafRef = useRef(0);
@@ -69,15 +80,58 @@ export default function ScatterView({ xy, rgb, fitKey }: Props) {
     let dragging = false;
     let lastX = 0;
     let lastY = 0;
+    let path: number[][] = []; // lasso polygon in CSS px relative to the canvas
+
+    const toData = (px: number, py: number): [number, number] => {
+      const v = viewRef.current;
+      const r = c.getBoundingClientRect();
+      return [v.cx + (px - r.width / 2) * v.unitsPerPx, v.cy - (py - r.height / 2) * v.unitsPerPx];
+    };
+    const drawPath = () => {
+      const o = overlayRef.current;
+      if (!o) return;
+      const dpr = window.devicePixelRatio || 1;
+      const r = c.getBoundingClientRect();
+      o.width = r.width * dpr;
+      o.height = r.height * dpr;
+      const ctx = o.getContext("2d");
+      if (!ctx) return;
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, r.width, r.height);
+      if (path.length < 2) return;
+      ctx.beginPath();
+      ctx.moveTo(path[0][0], path[0][1]);
+      for (const [x, y] of path) ctx.lineTo(x, y);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(52, 211, 153, 0.12)";
+      ctx.strokeStyle = "rgb(52, 211, 153)";
+      ctx.lineWidth = 1.5;
+      ctx.fill();
+      ctx.stroke();
+    };
 
     const onDown = (e: PointerEvent) => {
       dragging = true;
       lastX = e.clientX;
       lastY = e.clientY;
-      c.setPointerCapture(e.pointerId);
+      try {
+        c.setPointerCapture(e.pointerId);
+      } catch {
+        /* synthetic or already-released pointer */
+      }
+      if (lassoRef.current) {
+        const r = c.getBoundingClientRect();
+        path = [[e.clientX - r.left, e.clientY - r.top]];
+      }
     };
     const onMove = (e: PointerEvent) => {
       if (!dragging) return;
+      if (lassoRef.current) {
+        const r = c.getBoundingClientRect();
+        path.push([e.clientX - r.left, e.clientY - r.top]);
+        drawPath();
+        return;
+      }
       const v = viewRef.current;
       v.cx -= (e.clientX - lastX) * v.unitsPerPx;
       v.cy += (e.clientY - lastY) * v.unitsPerPx; // screen y is down, data y is up
@@ -86,7 +140,14 @@ export default function ScatterView({ xy, rgb, fitKey }: Props) {
       redraw();
     };
     const onUp = () => {
+      if (!dragging) return;
       dragging = false;
+      if (lassoRef.current && path.length >= 3) {
+        const poly = path.map(([px, py]) => toData(px, py));
+        onLassoRef.current(selectInPolygon(xy, poly));
+      }
+      path = [];
+      drawPath();
     };
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
@@ -121,6 +182,12 @@ export default function ScatterView({ xy, rgb, fitKey }: Props) {
   }, [xy]);
 
   return (
-    <canvas ref={canvasRef} className="h-full w-full cursor-grab touch-none active:cursor-grabbing" />
+    <div className="relative h-full w-full">
+      <canvas
+        ref={canvasRef}
+        className={`h-full w-full touch-none ${lasso ? "cursor-crosshair" : "cursor-grab active:cursor-grabbing"}`}
+      />
+      <canvas ref={overlayRef} className="pointer-events-none absolute inset-0 h-full w-full" />
+    </div>
   );
 }
