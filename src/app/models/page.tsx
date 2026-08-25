@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { MODELS, type ModelCard } from "../../lib/annotate/registry";
+import SiteHeader from "../../components/SiteHeader";
 
 export const metadata = { title: "cellulaML - model cards" };
 
@@ -11,24 +11,23 @@ const STATUS: Record<ModelCard["status"], string> = {
 
 export default function ModelsPage() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-10 text-sm">
-      <div className="mb-8 flex items-baseline gap-4">
-        <h1 className="text-2xl font-semibold">Model cards</h1>
-        <Link href="/" className="text-zinc-500 underline underline-offset-4 hover:text-zinc-300">
-          back to the app
-        </Link>
-      </div>
-      <p className="mb-8 max-w-2xl text-zinc-400">
-        Every version of the annotation model, what it was trained on, how it was validated, what it was tested on
-        afterwards, and where it fails. Test sets are never used for training. The model is frozen at inference: it does
-        not learn from your data.
-      </p>
-      <div className="flex flex-col gap-10">
-        {MODELS.map((m) => (
-          <Card key={m.version} m={m} />
-        ))}
-      </div>
-    </main>
+    <>
+      <SiteHeader current="models" />
+      <main className="mx-auto max-w-3xl px-6 pb-16 pt-4 text-sm">
+        <h1 className="mb-6 text-2xl font-semibold">Model cards</h1>
+        <p className="mb-8 max-w-2xl text-zinc-400">
+          Every version of the annotation model, what it was trained on, how it
+          was validated, what it was tested on afterwards, and where it fails.
+          Test sets are never used for training. The model is frozen at
+          inference: it does not learn from your data.
+        </p>
+        <div className="flex flex-col gap-10">
+          {MODELS.map((m) => (
+            <Card key={m.version} m={m} />
+          ))}
+        </div>
+      </main>
+    </>
   );
 }
 
@@ -37,10 +36,17 @@ function Card({ m }: { m: ModelCard }) {
     <section className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-5">
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <h2 className="text-lg font-semibold">{m.version}</h2>
-        <span className={`rounded border px-2 py-0.5 text-xs ${STATUS[m.status]}`}>{m.status}</span>
+        <span
+          className={`rounded border px-2 py-0.5 text-xs ${STATUS[m.status]}`}
+        >
+          {m.status}
+        </span>
         <span className="text-xs text-zinc-500">{m.date}</span>
         {m.file && (
-          <a href={m.file} className="ml-auto text-xs text-zinc-500 underline underline-offset-2 hover:text-zinc-300">
+          <a
+            href={m.file}
+            className="ml-auto text-xs text-zinc-500 underline underline-offset-2 hover:text-zinc-300"
+          >
             weights (JSON)
           </a>
         )}
@@ -55,7 +61,10 @@ function Card({ m }: { m: ModelCard }) {
       <Table
         rows={[
           ["Dataset", m.training.dataset],
-          ["Cells / donors", `${m.training.cells} cells, ${m.training.donors} donor(s)`],
+          [
+            "Cells / donors",
+            `${m.training.cells} cells, ${m.training.donors} donor(s)`,
+          ],
           ["Classes", m.training.classes],
           ["Hyperparameters", m.training.hyperparams],
         ]}
@@ -69,9 +78,14 @@ function Card({ m }: { m: ModelCard }) {
           <H3>External tests (labels hidden, model frozen)</H3>
           <div className="mb-4 flex flex-col gap-3">
             {m.tests.map((t) => (
-              <div key={t.dataset} className="rounded border border-zinc-800 p-3">
+              <div
+                key={t.dataset}
+                className="rounded border border-zinc-800 p-3"
+              >
                 <p className="font-medium text-zinc-200">{t.dataset}</p>
-                <p className="text-xs text-zinc-500">why it is hard: {t.whyItIsHard}</p>
+                <p className="text-xs text-zinc-500">
+                  why it is hard: {t.whyItIsHard}
+                </p>
                 <p className="mt-1 text-zinc-300">{t.result}</p>
               </div>
             ))}
@@ -90,7 +104,11 @@ function Card({ m }: { m: ModelCard }) {
 }
 
 function H3({ children }: { children: React.ReactNode }) {
-  return <h3 className="mb-1 mt-3 text-xs font-medium uppercase tracking-wide text-zinc-500">{children}</h3>;
+  return (
+    <h3 className="mb-1 mt-3 text-xs font-medium uppercase tracking-wide text-zinc-500">
+      {children}
+    </h3>
+  );
 }
 
 function Table({ rows }: { rows: [string, string][] }) {

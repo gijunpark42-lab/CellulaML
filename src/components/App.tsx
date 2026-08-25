@@ -7,6 +7,7 @@ import type { MarkerResult } from "../lib/stats/markers";
 import type { AnnotationResult } from "../lib/annotate/model";
 import type { WorkerRequest, WorkerResponse } from "../workers/parser.worker";
 import DropZone from "./DropZone";
+import SiteHeader from "./SiteHeader";
 import Viewer from "./Viewer";
 
 /** Above this we refuse: the whole file must fit in browser memory twice (bytes + parsed arrays). */
@@ -26,16 +27,24 @@ export default function App() {
   const geneReq = useRef(0);
   const geneResolvers = useRef(new Map<number, (v: Float32Array) => void>());
   const markerResolvers = useRef(new Map<number, (r: MarkerResult) => void>());
-  const annotResolvers = useRef(new Map<number, (r: AnnotationResult | null, err?: string) => void>());
+  const annotResolvers = useRef(
+    new Map<number, (r: AnnotationResult | null, err?: string) => void>(),
+  );
 
   const spawnRef = useRef<() => void>(() => {});
   /** (Re)create the parser worker. Called on mount and after a worker crash. */
   const spawnWorker = useCallback(() => {
     workerRef.current?.terminate();
-    const w = new Worker(new URL("../workers/parser.worker.ts", import.meta.url));
+    const w = new Worker(
+      new URL("../workers/parser.worker.ts", import.meta.url),
+    );
     w.onerror = (e) => {
       console.error("[cellulaML] worker crashed, restarting:", e.message);
-      setStatus({ kind: "error", name: "parser", message: `internal error (${e.message}); please reopen the file` });
+      setStatus({
+        kind: "error",
+        name: "parser",
+        message: `internal error (${e.message}); please reopen the file`,
+      });
       geneResolvers.current.clear();
       markerResolvers.current.clear();
       annotResolvers.current.clear();
@@ -64,13 +73,22 @@ export default function App() {
       });
       return;
     }
-    const big = file.size > WARN_BYTES ? " - large file, this may take a minute" : "";
-    setStatus({ kind: "loading", name: file.name, note: `reading ${mb.toFixed(1)} MB${big}` });
+    const big =
+      file.size > WARN_BYTES ? " - large file, this may take a minute" : "";
+    setStatus({
+      kind: "loading",
+      name: file.name,
+      note: `reading ${mb.toFixed(1)} MB${big}`,
+    });
     let buffer: ArrayBuffer;
     try {
       buffer = await file.arrayBuffer();
     } catch (err) {
-      setStatus({ kind: "error", name: file.name, message: `could not read file: ${String(err)}` });
+      setStatus({
+        kind: "error",
+        name: file.name,
+        message: `could not read file: ${String(err)}`,
+      });
       return;
     }
     setStatus({ kind: "loading", name: file.name, note: `parsing${big}` });
@@ -82,20 +100,27 @@ export default function App() {
         return;
       }
       if (r.type === "annotate") {
-        console.log(`[cellulaML] annotate: ${r.result ? `${r.result.clusters.length} clusters, ${r.result.genesMatched} genes matched` : r.error}, ${r.ms.toFixed(0)} ms`);
+        console.log(
+          `[cellulaML] annotate: ${r.result ? `${r.result.clusters.length} clusters, ${r.result.genesMatched} genes matched` : r.error}, ${r.ms.toFixed(0)} ms`,
+        );
         annotResolvers.current.get(r.requestId)?.(r.result, r.error);
         annotResolvers.current.delete(r.requestId);
         return;
       }
       if (r.type === "markers") {
-        console.log(`[cellulaML] markers: ${r.result.nSelected} cells, ${r.result.nTested} genes, ${r.ms.toFixed(0)} ms`);
+        console.log(
+          `[cellulaML] markers: ${r.result.nSelected} cells, ${r.result.nTested} genes, ${r.ms.toFixed(0)} ms`,
+        );
         markerResolvers.current.get(r.requestId)?.(r.result);
         markerResolvers.current.delete(r.requestId);
         return;
       }
       if (r.type === "loaded") {
-        console.log(`[cellulaML] ${file.name}: ${summarize(r.meta)} (${r.ms.toFixed(0)} ms)`);
-        if (r.meta.warnings.length) console.warn("[cellulaML] warnings:", r.meta.warnings);
+        console.log(
+          `[cellulaML] ${file.name}: ${summarize(r.meta)} (${r.ms.toFixed(0)} ms)`,
+        );
+        if (r.meta.warnings.length)
+          console.warn("[cellulaML] warnings:", r.meta.warnings);
         setStatus({ kind: "loaded", name: file.name, meta: r.meta, ms: r.ms });
       } else {
         console.error(`[cellulaML] ${file.name}: ${r.message}`);
@@ -129,16 +154,27 @@ export default function App() {
     });
   }, []);
 
-  const fetchAnnotation = useCallback((modelUrl: string, codes: Int32Array, nCats: number) => {
-    return new Promise<AnnotationResult>((resolve, reject) => {
-      const w = workerRef.current;
-      if (!w) return reject(new Error("worker not ready"));
-      const requestId = ++geneReq.current;
-      annotResolvers.current.set(requestId, (r, err) => (r ? resolve(r) : reject(new Error(err ?? "annotation failed"))));
-      const req: WorkerRequest = { type: "annotate", modelUrl, codes: codes.slice(), nCats, requestId };
-      w.postMessage(req);
-    });
-  }, []);
+  const fetchAnnotation = useCallback(
+    (modelUrl: string, codes: Int32Array, nCats: number) => {
+      return new Promise<AnnotationResult>((resolve, reject) => {
+        const w = workerRef.current;
+        if (!w) return reject(new Error("worker not ready"));
+        const requestId = ++geneReq.current;
+        annotResolvers.current.set(requestId, (r, err) =>
+          r ? resolve(r) : reject(new Error(err ?? "annotation failed")),
+        );
+        const req: WorkerRequest = {
+          type: "annotate",
+          modelUrl,
+          codes: codes.slice(),
+          nCats,
+          requestId,
+        };
+        w.postMessage(req);
+      });
+    },
+    [],
+  );
 
   const loadDemo = useCallback(async () => {
     const res = await fetch("/demo/pbmc3k_small.h5ad");
@@ -160,19 +196,25 @@ export default function App() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 p-8">
-      <h1 className="text-4xl font-semibold tracking-tight">cellulaML</h1>
-      <p className="max-w-md text-center text-zinc-400">
-        Drop an <code>.h5ad</code> file to view your single-cell analysis instantly. No questions,
-        no server — everything runs in your browser.
-      </p>
-      <DropZone status={status} onFile={load} onDemo={loadDemo} />
-      <p className="text-xs text-zinc-600">
-        Annotation model: PBMC reference v2 (8 cell types){" "}
-        <Link href="/models" className="underline underline-offset-2 hover:text-zinc-400">
-          model cards: training data, validation, tests
-        </Link>
-      </p>
-    </main>
+    <div className="flex min-h-screen flex-col">
+      <SiteHeader current="app" />
+      <main className="flex flex-1 flex-col items-center justify-center gap-6 p-8">
+        <h1 className="text-4xl font-semibold tracking-tight">cellulaML</h1>
+        <p className="max-w-md text-center text-zinc-400">
+          Drop an <code>.h5ad</code> file to view your single-cell analysis
+          instantly. No questions, no server — everything runs in your browser.
+        </p>
+        <DropZone status={status} onFile={load} onDemo={loadDemo} />
+        <p className="text-xs text-zinc-600">
+          Annotation model: PBMC reference v2 (8 cell types){" "}
+          <Link
+            href="/models"
+            className="underline underline-offset-2 hover:text-zinc-400"
+          >
+            see how it was trained and tested
+          </Link>
+        </p>
+      </main>
+    </div>
   );
 }
