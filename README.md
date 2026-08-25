@@ -35,7 +35,14 @@ Preprocessing mirrors what the browser does at inference: `log1p(CP10k)` → 3,0
 | Abstention threshold τ = 0.59 | 97% accuracy at 98% coverage (τ = 0.74 → 98% / 96%, τ = 0.90 → 99% / 90%) |
 | Cluster-level (77 donor × cluster groups) | 77 / 77 |
 
-**External test** on pbmc3k (10x Genomics, different lab, platform and year; stored Louvain labels hidden): 6 of 8 clusters called, all correct; the model abstained on the 2 it would have gotten wrong (CD8 T vs CD4 T, and Megakaryocytes, whose reference label is red-blood-cell contaminated). Cell-level accuracy 0.87.
+**External tests** (stored labels hidden, model frozen):
+
+| Dataset | Difference from the reference | Clusters called | Correct | Abstained |
+|---|---|---|---|---|
+| pbmc3k (10x, 2016, healthy) | other lab, platform, year | 6 / 8 | 6 | 2 — the two it would have gotten wrong (CD8 T, Megakaryocytes) |
+| Stephenson 2021 (COVID-19 PBMC, 5,000-cell subsample, 45 fine-grained labels) | disease state, 3 sites, fine labels mapped to the 8 coarse types | 22 / 25 in-vocabulary | 19 (86%) | 3 |
+
+Where it fails, honestly: CD8 T cells are its weak class (twice called CD4 T with high confidence on COVID data), and abstention only catches ambiguity *between known types* — a cell type the model has never seen (platelets, plasmablasts, HSCs) can still get a confident wrong label. Out-of-distribution detection is the next thing to add.
 
 Known limits: 8 PBMC types only (no T-cell subtypes, pDC, plasma cells); other tissues and platforms are untested. The model is frozen — it never learns from your data.
 

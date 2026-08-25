@@ -15,10 +15,19 @@ interface Props {
   focused: number | null;
 }
 
+const NOT_CLUSTER_HINT = /status|disease|condition|patient|donor|sample|batch|sex|age|site|day|time|phase/i;
+
 export default function AnnotationPanel(p: Props) {
   const { state } = p;
+  const looksLikeMetadata = NOT_CLUSTER_HINT.test(p.clusterName) || p.clusterCategories.length < 3;
   return (
     <div className="flex flex-col gap-2">
+      {looksLikeMetadata && state.kind !== "done" && (
+        <p className="rounded border border-amber-900 bg-amber-950/30 p-2 text-xs text-amber-300/90">
+          &quot;{p.clusterName}&quot; looks like sample metadata, not cell clusters. Each group would mix many cell types and come back
+          &quot;unsure&quot;. Pick a cluster column (leiden, louvain, cell_type…) under Color by.
+        </p>
+      )}
       {state.kind !== "done" && (
         <button
           type="button"

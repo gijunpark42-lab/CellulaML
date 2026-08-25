@@ -20,6 +20,15 @@ function pickDefault(names: string[]): string {
   return PREFERRED_EMBEDDINGS.find((p) => names.includes(p)) ?? names[0];
 }
 
+/** Cluster-like columns first (leiden/louvain/cluster/cell_type...), then the column with most categories. */
+const CLUSTER_HINTS = /leiden|louvain|cluster|cell_?type|celltype|annotation|label/i;
+function pickDefaultLabel(labels: DatasetMeta["labels"]): string {
+  if (labels.length === 0) return "";
+  const hinted = labels.filter((l) => CLUSTER_HINTS.test(l.name));
+  const pool = hinted.length ? hinted : labels;
+  return pool.reduce((a, b) => (b.categories.length > a.categories.length ? b : a)).name;
+}
+
 interface Props {
   meta: DatasetMeta;
   fileName: string;
@@ -48,7 +57,7 @@ export default function Viewer({
   const [embName, setEmbName] = useState(() =>
     pickDefault(meta.embeddings.map((e) => e.name)),
   );
-  const [labelName, setLabelName] = useState(() => meta.labels[0]?.name ?? "");
+  const [labelName, setLabelName] = useState(() => pickDefaultLabel(meta.labels));
   const [gene, setGene] = useState<string | null>(null);
   const [fetched, setFetched] = useState<{
     name: string;
