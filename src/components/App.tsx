@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { summarize, type DatasetMeta } from "../lib/h5ad/types";
 import type { MarkerResult } from "../lib/stats/markers";
@@ -166,6 +167,12 @@ export default function App() {
         no server — everything runs in your browser.
       </p>
       <DropZone status={status} onFile={load} onDemo={loadDemo} />
+      <p className="text-xs text-zinc-600">
+        Annotation model: PBMC reference v2 (8 cell types){" "}
+        <Link href="/models" className="underline underline-offset-2 hover:text-zinc-400">
+          model cards: training data, validation, tests
+        </Link>
+      </p>
     </main>
   );
 }

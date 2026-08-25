@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { DatasetMeta } from "../lib/h5ad/types";
 import type { ScalarScale } from "../lib/viewer/colormap";
 import Colorbar from "./Colorbar";
@@ -98,7 +99,12 @@ export default function SidePanel(p: Props) {
 
       {meta.labels.length > 0 && (
         <section>
-          <h2 className={H2}>Cell type annotation</h2>
+          <div className="mb-1 flex items-baseline">
+            <h2 className={H2}>Cell type annotation</h2>
+            <Link href="/models" className="ml-auto text-xs text-zinc-500 underline underline-offset-2 hover:text-zinc-300">
+              model card
+            </Link>
+          </div>
           <ErrorBoundary name="Annotation">
             <AnnotationPanel {...p.annotation} />
           </ErrorBoundary>
