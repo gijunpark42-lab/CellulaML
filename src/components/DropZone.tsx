@@ -46,6 +46,7 @@ export default function DropZone({ status, onFile, onDemo }: Props) {
 
       <button
         type="button"
+        disabled={status.kind === "loading"}
         onClick={onDemo}
         className="self-center text-sm text-zinc-500 underline underline-offset-4 hover:text-zinc-300"
       >

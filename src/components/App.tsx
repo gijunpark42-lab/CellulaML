@@ -7,9 +7,14 @@ import type { WorkerRequest, WorkerResponse } from "../workers/parser.worker";
 import DropZone from "./DropZone";
 import Viewer from "./Viewer";
 
+/** Above this we refuse: the whole file must fit in browser memory twice (bytes + parsed arrays). */
+const MAX_BYTES = 1.5 * 1024 ** 3;
+/** Above this we still load, but warn that it may take a while. */
+const WARN_BYTES = 300 * 1024 ** 2;
+
 export type Status =
   | { kind: "idle" }
-  | { kind: "loading"; name: string }
+  | { kind: "loading"; name: string; note: string }
   | { kind: "loaded"; name: string; meta: DatasetMeta; ms: number }
   | { kind: "error"; name: string; message: string };
 
@@ -20,17 +25,48 @@ export default function App() {
   const geneResolvers = useRef(new Map<number, (v: Float32Array) => void>());
   const markerResolvers = useRef(new Map<number, (r: MarkerResult) => void>());
 
-  useEffect(() => {
+  /** (Re)create the parser worker. Called on mount and after a worker crash. */
+  const spawnWorker = useCallback(() => {
+    workerRef.current?.terminate();
     const w = new Worker(new URL("../workers/parser.worker.ts", import.meta.url));
+    w.onerror = (e) => {
+      console.error("[cellulaML] worker crashed, restarting:", e.message);
+      setStatus({ kind: "error", name: "parser", message: `internal error (${e.message}); please reopen the file` });
+      geneResolvers.current.clear();
+      markerResolvers.current.clear();
+      spawnWorker();
+    };
     workerRef.current = w;
-    return () => w.terminate();
+    return w;
   }, []);
+
+  useEffect(() => {
+    spawnWorker();
+    return () => workerRef.current?.terminate();
+  }, [spawnWorker]);
 
   const load = useCallback(async (file: File) => {
     const w = workerRef.current;
     if (!w) return;
-    setStatus({ kind: "loading", name: file.name });
-    const buffer = await file.arrayBuffer();
+    const mb = file.size / 1024 ** 2;
+    if (file.size > MAX_BYTES) {
+      setStatus({
+        kind: "error",
+        name: file.name,
+        message: `${mb.toFixed(0)} MB is too large to open in a browser tab (limit ${(MAX_BYTES / 1024 ** 3).toFixed(1)} GB). Subset the file first, e.g. adata[:, adata.var.highly_variable].write("small.h5ad").`,
+      });
+      return;
+    }
+    const big = file.size > WARN_BYTES ? " - large file, this may take a minute" : "";
+    setStatus({ kind: "loading", name: file.name, note: `reading ${mb.toFixed(1)} MB${big}` });
+    let buffer: ArrayBuffer;
+    try {
+      buffer = await file.arrayBuffer();
+    } catch (err) {
+      setStatus({ kind: "error", name: file.name, message: `could not read file: ${String(err)}` });
+      return;
+    }
+    setStatus({ kind: "loading", name: file.name, note: `parsing${big}` });
     w.onmessage = (ev: MessageEvent<WorkerResponse>) => {
       const r = ev.data;
       if (r.type === "gene") {

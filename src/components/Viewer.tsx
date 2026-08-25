@@ -3,8 +3,13 @@
 import { useEffect, useMemo, useState } from "react";
 import type { DatasetMeta } from "../lib/h5ad/types";
 import type { MarkerResult } from "../lib/stats/markers";
-import { colorsFromScalar, scalarScale, type ScalarScale } from "../lib/viewer/colormap";
+import {
+  colorsFromScalar,
+  scalarScale,
+  type ScalarScale,
+} from "../lib/viewer/colormap";
 import { categoryColor, colorsFromCodes } from "../lib/viewer/palette";
+import ErrorBoundary from "./ErrorBoundary";
 import ScatterView from "./ScatterView";
 import SidePanel from "./SidePanel";
 
@@ -22,19 +27,35 @@ interface Props {
   onReset: () => void;
 }
 
-export default function Viewer({ meta, fileName, fetchGene, fetchMarkers, onReset }: Props) {
-  const [embName, setEmbName] = useState(() => pickDefault(meta.embeddings.map((e) => e.name)));
+export default function Viewer({
+  meta,
+  fileName,
+  fetchGene,
+  fetchMarkers,
+  onReset,
+}: Props) {
+  const [embName, setEmbName] = useState(() =>
+    pickDefault(meta.embeddings.map((e) => e.name)),
+  );
   const [labelName, setLabelName] = useState(() => meta.labels[0]?.name ?? "");
   const [gene, setGene] = useState<string | null>(null);
-  const [fetched, setFetched] = useState<{ name: string; values: Float32Array; scale: ScalarScale } | null>(null);
+  const [fetched, setFetched] = useState<{
+    name: string;
+    values: Float32Array;
+    scale: ScalarScale;
+  } | null>(null);
   // only use the fetched column while it matches the selected gene (stale data is ignored, not cleared)
   const geneData = gene && fetched?.name === gene ? fetched : null;
 
   const [lasso, setLasso] = useState(false);
   const [selected, setSelected] = useState<Uint32Array | null>(null);
-  const [markers, setMarkers] = useState<{ key: Uint32Array; result: MarkerResult } | null>(null);
+  const [markers, setMarkers] = useState<{
+    key: Uint32Array;
+    result: MarkerResult;
+  } | null>(null);
 
-  const emb = meta.embeddings.find((e) => e.name === embName) ?? meta.embeddings[0];
+  const emb =
+    meta.embeddings.find((e) => e.name === embName) ?? meta.embeddings[0];
   const label = meta.labels.find((l) => l.name === labelName) ?? null;
 
   // markers for the current selection (stale results are ignored via the key check)
@@ -48,7 +69,8 @@ export default function Viewer({ meta, fileName, fetchGene, fetchMarkers, onRese
       cancelled = true;
     };
   }, [selected, fetchMarkers]);
-  const markerResult = selected && markers?.key === selected ? markers.result : null;
+  const markerResult =
+    selected && markers?.key === selected ? markers.result : null;
   const computing = !!selected && selected.length > 0 && markerResult === null;
 
   useEffect(() => {
@@ -82,7 +104,8 @@ export default function Viewer({ meta, fileName, fetchGene, fetchMarkers, onRese
   const rgb = useMemo(() => {
     let base: Float32Array;
     if (geneData) base = colorsFromScalar(geneData.values, geneData.scale);
-    else if (label) base = colorsFromCodes(label.codes, label.categories.length);
+    else if (label)
+      base = colorsFromCodes(label.codes, label.categories.length);
     else base = colorsFromCodes(new Int32Array(meta.nCells), 1); // single color
     if (!selected || selected.length === 0) return base;
     // dim everything outside the selection
@@ -117,40 +140,51 @@ export default function Viewer({ meta, fileName, fetchGene, fetchMarkers, onRese
   return (
     <div className="flex h-screen w-screen">
       <div className="relative min-w-0 flex-1">
-        <ScatterView xy={emb.xy} rgb={rgb} fitKey={emb.name} lasso={lasso} onLasso={onLasso} />
-        <button
-          type="button"
-          onClick={() => setLasso((v) => !v)}
-          className={`absolute left-3 top-3 rounded px-3 py-1 text-xs ${
-            lasso ? "bg-emerald-400 text-zinc-900" : "bg-zinc-800 text-zinc-200 hover:bg-zinc-700"
-          }`}
-        >
-          {lasso ? "lasso: on (Esc)" : "lasso select"}
-        </button>
+        <ErrorBoundary name="Scatter plot" className="m-4">
+          <ScatterView
+            xy={emb.xy}
+            rgb={rgb}
+            fitKey={emb.name}
+            lasso={lasso}
+            onLasso={onLasso}
+          />
+        </ErrorBoundary>
         <p className="pointer-events-none absolute bottom-2 left-3 text-xs text-zinc-600">
           drag to pan · wheel to zoom · double-click to reset
         </p>
       </div>
-      <SidePanel
-        meta={meta}
-        fileName={fileName}
-        embName={emb.name}
-        onEmb={setEmbName}
-        labelName={labelName}
-        onLabel={(name) => {
-          setLabelName(name);
-          setGene(null);
-        }}
-        gene={gene}
-        onGene={setGene}
-        geneScale={geneData?.scale ?? null}
-        nSelected={selected?.length ?? 0}
-        onClearSelection={() => setSelected(null)}
-        markers={markerResult}
-        computing={computing}
-        legend={label && !geneData ? label.categories.map((cat, i) => ({ name: cat, color: categoryColor(i), count: counts[i] })) : []}
-        onReset={onReset}
-      />
+      <ErrorBoundary name="Side panel" className="m-4 w-64 self-start">
+        <SidePanel
+          meta={meta}
+          fileName={fileName}
+          embName={emb.name}
+          onEmb={setEmbName}
+          labelName={labelName}
+          onLabel={(name) => {
+            setLabelName(name);
+            setGene(null);
+          }}
+          gene={gene}
+          onGene={setGene}
+          geneScale={geneData?.scale ?? null}
+          lasso={lasso}
+          onToggleLasso={() => setLasso((v) => !v)}
+          nSelected={selected?.length ?? 0}
+          onClearSelection={() => setSelected(null)}
+          markers={markerResult}
+          computing={computing}
+          legend={
+            label && !geneData
+              ? label.categories.map((cat, i) => ({
+                  name: cat,
+                  color: categoryColor(i),
+                  count: counts[i],
+                }))
+              : []
+          }
+          onReset={onReset}
+        />
+      </ErrorBoundary>
     </div>
   );
 }

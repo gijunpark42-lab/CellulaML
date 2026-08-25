@@ -39,9 +39,11 @@ export class ScatterGL {
   private uOffset: WebGLUniformLocation;
   private uSize: WebGLUniformLocation;
   private n = 0;
+  private canvas: HTMLCanvasElement;
   pointSize = 4;
 
-  constructor(private canvas: HTMLCanvasElement) {
+  constructor(canvas: HTMLCanvasElement) {
+    this.canvas = canvas;
     const gl = canvas.getContext("webgl", { antialias: true, alpha: false });
     if (!gl) throw new Error("WebGL is not available in this browser");
     this.gl = gl;
