@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SITE } from "../lib/site";
+import EmailButton from "./EmailButton";
 
 /** Top bar: brand on the left, model cards + author links on the right. */
 export default function SiteHeader({ current }: { current?: "app" | "models" }) {
@@ -28,9 +29,7 @@ export default function SiteHeader({ current }: { current?: "app" | "models" }) 
             <LinkedInIcon /> LinkedIn
           </a>
         )}
-        <a href={`mailto:${SITE.email}`} className={LINK} title={SITE.email}>
-          <MailIcon /> Email
-        </a>
+        <EmailButton email={SITE.email} className={LINK} />
       </nav>
     </header>
   );
@@ -55,11 +54,3 @@ function LinkedInIcon() {
   );
 }
 
-function MailIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-      <path d="m3 7 9 6 9-6" />
-    </svg>
-  );
-}
