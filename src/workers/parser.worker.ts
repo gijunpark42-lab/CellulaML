@@ -1,11 +1,15 @@
 /// <reference lib="webworker" />
 import h5wasm from "h5wasm";
 import { parseH5ad } from "../lib/h5ad/parse";
+import { geneColumn } from "../lib/h5ad/matrix";
 import type { Dataset, DatasetMeta } from "../lib/h5ad/types";
 
-export type WorkerRequest = { type: "load"; buffer: ArrayBuffer; name: string };
+export type WorkerRequest =
+  | { type: "load"; buffer: ArrayBuffer; name: string }
+  | { type: "gene"; index: number; requestId: number };
 export type WorkerResponse =
   | { type: "loaded"; meta: DatasetMeta; ms: number }
+  | { type: "gene"; index: number; requestId: number; values: Float32Array }
   | { type: "error"; message: string };
 
 /** The full dataset (including X) lives here; the UI only ever sees DatasetMeta. */
@@ -17,6 +21,13 @@ function post(msg: WorkerResponse, transfer: Transferable[] = []) {
 
 self.onmessage = async (ev: MessageEvent<WorkerRequest>) => {
   const req = ev.data;
+  if (req.type === "gene") {
+    // never throw: an out-of-range or X-less request yields all zeros
+    const values =
+      current?.X ? geneColumn(current.X, req.index) : new Float32Array(current?.nCells ?? 0);
+    post({ type: "gene", index: req.index, requestId: req.requestId, values }, [values.buffer]);
+    return;
+  }
   if (req.type !== "load") return;
   const t0 = performance.now();
   const path = "/current.h5ad";

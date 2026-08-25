@@ -1,6 +1,9 @@
 "use client";
 
 import type { DatasetMeta } from "../lib/h5ad/types";
+import type { ScalarScale } from "../lib/viewer/colormap";
+import Colorbar from "./Colorbar";
+import GeneSearch from "./GeneSearch";
 
 interface LegendItem {
   name: string;
@@ -15,6 +18,9 @@ interface Props {
   onEmb: (name: string) => void;
   labelName: string;
   onLabel: (name: string) => void;
+  gene: string | null;
+  onGene: (name: string | null) => void;
+  geneScale: ScalarScale | null;
   legend: LegendItem[];
   onReset: () => void;
 }
@@ -76,6 +82,16 @@ export default function SidePanel(p: Props) {
               </option>
             ))}
           </select>
+        )}
+      </section>
+
+      <section>
+        <h2 className={H2}>Gene expression</h2>
+        <GeneSearch geneNames={meta.geneNames} selected={p.gene} onSelect={p.onGene} />
+        {p.gene && p.geneScale && (
+          <div className="mt-2">
+            <Colorbar scale={p.geneScale} label="expression" />
+          </div>
         )}
       </section>
 
