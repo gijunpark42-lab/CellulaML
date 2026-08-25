@@ -3,20 +3,37 @@ import h5wasm from "h5wasm";
 import { parseH5ad } from "../lib/h5ad/parse";
 import { geneColumn } from "../lib/h5ad/matrix";
 import { computeMarkers, type MarkerResult } from "../lib/stats/markers";
+import { annotate, type AnnotationResult, type RefModel } from "../lib/annotate/model";
 import type { Dataset, DatasetMeta } from "../lib/h5ad/types";
 
 export type WorkerRequest =
   | { type: "load"; buffer: ArrayBuffer; name: string }
   | { type: "gene"; index: number; requestId: number }
-  | { type: "markers"; selected: Uint32Array; requestId: number };
+  | { type: "markers"; selected: Uint32Array; requestId: number }
+  | { type: "annotate"; modelUrl: string; codes: Int32Array; nCats: number; requestId: number };
 export type WorkerResponse =
   | { type: "loaded"; meta: DatasetMeta; ms: number }
   | { type: "gene"; index: number; requestId: number; values: Float32Array }
   | { type: "markers"; requestId: number; result: MarkerResult; ms: number }
+  | { type: "annotate"; requestId: number; result: AnnotationResult | null; error?: string; ms: number }
   | { type: "error"; message: string };
 
 /** The full dataset (including X) lives here; the UI only ever sees DatasetMeta. */
 let current: Dataset | null = null;
+const modelCache = new Map<string, Promise<RefModel>>();
+
+function loadModel(url: string): Promise<RefModel> {
+  let p = modelCache.get(url);
+  if (!p) {
+    p = fetch(url).then((r) => {
+      if (!r.ok) throw new Error(`model download failed (${r.status})`);
+      return r.json() as Promise<RefModel>;
+    });
+    modelCache.set(url, p);
+    p.catch(() => modelCache.delete(url));
+  }
+  return p;
+}
 
 function post(msg: WorkerResponse, transfer: Transferable[] = []) {
   (self as unknown as Worker).postMessage(msg, transfer);
@@ -42,6 +59,22 @@ self.onmessage = async (ev: MessageEvent<WorkerRequest>) => {
     post({ type: "markers", requestId: req.requestId, result, ms: performance.now() - t0 });
     return;
   }
+  if (req.type === "annotate") {
+    const t0 = performance.now();
+    try {
+      if (!current) throw new Error("no file loaded");
+      const model = await loadModel(req.modelUrl);
+      const result = annotate(current, model, req.codes, req.nCats);
+      post({ type: "annotate", requestId: req.requestId, result, ms: performance.now() - t0 }, [
+        result.probs.buffer,
+        result.pred.buffer,
+        result.conf.buffer,
+      ]);
+    } catch (err) {
+      post({ type: "annotate", requestId: req.requestId, result: null, error: err instanceof Error ? err.message : String(err), ms: performance.now() - t0 });
+    }
+    return;
+  }
   if (req.type !== "load") return;
   const t0 = performance.now();
   const path = "/current.h5ad";
@@ -64,8 +97,8 @@ self.onmessage = async (ev: MessageEvent<WorkerRequest>) => {
     } finally {
       file.close();
     }
-    const { X, ...rest } = current;
-    const meta: DatasetMeta = { ...rest, hasX: X !== null };
+    const { X, raw, ...rest } = current;
+    const meta: DatasetMeta = { ...rest, hasX: X !== null, hasRaw: raw !== null };
     // copy typed arrays so the worker keeps its own dataset intact
     const copies: Transferable[] = [];
     meta.labels = meta.labels.map((l) => {

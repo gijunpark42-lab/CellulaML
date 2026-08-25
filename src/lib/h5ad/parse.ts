@@ -1,5 +1,5 @@
 import type { Group, Dataset as H5Dataset, Entity } from "h5wasm";
-import type { Dataset, LabelSet, Embedding, ExpressionMatrix } from "./types";
+import type { Dataset, LabelSet, Embedding, ExpressionMatrix, RawMatrix } from "./types";
 
 /** Max distinct categories for an obs column to count as a label set (filters out cell-id-like columns). */
 const MAX_CATEGORIES = 200;
@@ -247,8 +247,8 @@ function readEmbeddings(root: Group, nCells: number, warn: Warn): Embedding[] {
 
 // ---------- X ----------
 
-function readX(root: Group, nCells: number, nGenes: number, warn: Warn): ExpressionMatrix | null {
-  const x = safeGet(root, "X");
+function readX(root: Group, nCells: number, nGenes: number, warn: Warn, key = "X"): ExpressionMatrix | null {
+  const x = safeGet(root, key);
   try {
     if (isDataset(x)) {
       const shape = x.shape;
@@ -283,9 +283,40 @@ function readX(root: Group, nCells: number, nGenes: number, warn: Warn): Express
       return { format: fmt, nRows: shape[0], nCols: shape[1], data, indices, indptr };
     }
   } catch (err) {
-    warn(`X: unreadable (${String(err)})`);
+    warn(`${key}: unreadable (${String(err)})`);
   }
   return null;
+}
+
+/** .raw: modern files store a group "raw" (X, var); legacy files store "raw.X" and "raw.var" at the root. */
+function readRaw(root: Group, nCells: number, warn: Warn): RawMatrix | null {
+  try {
+    const rawGroup = safeGet(root, "raw");
+    let X: ExpressionMatrix | null = null;
+    let geneNames: string[] = [];
+    if (isGroup(rawGroup)) {
+      const table = readTable(rawGroup, "var", warn);
+      geneNames = table?.index ?? [];
+      X = readX(rawGroup, nCells, geneNames.length, warn);
+    } else if (safeGet(root, "raw.X")) {
+      const table = readTable(root, "raw.var", warn);
+      geneNames = table?.index ?? [];
+      X = readX(root, nCells, geneNames.length, warn, "raw.X");
+    }
+    if (!X) return null;
+    if (X.nRows !== nCells) {
+      warn(`raw: ${X.nRows} rows but ${nCells} cells, ignored`);
+      return null;
+    }
+    if (geneNames.length !== X.nCols) {
+      warn(`raw: ${geneNames.length} gene names for ${X.nCols} columns, ignored`);
+      return null;
+    }
+    return { X, geneNames };
+  } catch (err) {
+    warn(`raw: skipped (${String(err)})`);
+    return null;
+  }
 }
 
 // ---------- entry point ----------
@@ -329,6 +360,7 @@ export function parseH5ad(root: Group): Dataset {
   }
 
   const embeddings = readEmbeddings(root, nCells, warn);
+  const raw = readRaw(root, nCells, warn);
 
-  return { nCells, nGenes, geneNames, cellIds, labels, embeddings, X, warnings };
+  return { nCells, nGenes, geneNames, cellIds, labels, embeddings, X, raw, warnings };
 }

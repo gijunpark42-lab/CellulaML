@@ -6,6 +6,7 @@ import Colorbar from "./Colorbar";
 import ErrorBoundary from "./ErrorBoundary";
 import GeneSearch from "./GeneSearch";
 import MarkerTable from "./MarkerTable";
+import AnnotationPanel from "./AnnotationPanel";
 import type { MarkerResult } from "../lib/stats/markers";
 
 interface LegendItem {
@@ -31,6 +32,7 @@ interface Props {
   markers: MarkerResult | null;
   computing: boolean;
   legend: LegendItem[];
+  annotation: React.ComponentProps<typeof AnnotationPanel>;
   onReset: () => void;
 }
 
@@ -93,6 +95,15 @@ export default function SidePanel(p: Props) {
           </select>
         )}
       </section>
+
+      {meta.labels.length > 0 && (
+        <section>
+          <h2 className={H2}>Cell type annotation</h2>
+          <ErrorBoundary name="Annotation">
+            <AnnotationPanel {...p.annotation} />
+          </ErrorBoundary>
+        </section>
+      )}
 
       <section>
         <h2 className={H2}>Gene expression</h2>

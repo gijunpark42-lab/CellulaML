@@ -1,0 +1,1277 @@
+{
+ "C": 0.3,
+ "n_hvg": 3000,
+ "folds": [
+  {
+   "donor": "patient_101",
+   "n": 2024,
+   "acc": 0.950098814229249,
+   "genes_used": 2315
+  },
+  {
+   "donor": "patient_1015",
+   "n": 5090,
+   "acc": 0.962671905697446,
+   "genes_used": 2211
+  },
+  {
+   "donor": "patient_1016",
+   "n": 3358,
+   "acc": 0.9306134603930911,
+   "genes_used": 2190
+  },
+  {
+   "donor": "patient_1039",
+   "n": 1102,
+   "acc": 0.9745916515426497,
+   "genes_used": 2393
+  },
+  {
+   "donor": "patient_107",
+   "n": 1042,
+   "acc": 0.9788867562380038,
+   "genes_used": 2393
+  },
+  {
+   "donor": "patient_1244",
+   "n": 3343,
+   "acc": 0.9805563864792103,
+   "genes_used": 2392
+  },
+  {
+   "donor": "patient_1256",
+   "n": 4134,
+   "acc": 0.9678277697145622,
+   "genes_used": 2272
+  },
+  {
+   "donor": "patient_1488",
+   "n": 4580,
+   "acc": 0.9818777292576419,
+   "genes_used": 2311
+  }
+ ],
+ "oof": {
+  "accuracy": 0.9653467352976939,
+  "balanced_accuracy": 0.9333358432995412
+ },
+ "temperature": 1.1478957710362587,
+ "reliability": [
+  {
+   "lo": 0,
+   "hi": 0.5,
+   "n": 89,
+   "conf": 0.44526436924934387,
+   "acc": 0.5280898876404494
+  },
+  {
+   "lo": 0.5,
+   "hi": 0.6,
+   "n": 380,
+   "conf": 0.5487865805625916,
+   "acc": 0.531578947368421
+  },
+  {
+   "lo": 0.6,
+   "hi": 0.7,
+   "n": 399,
+   "conf": 0.6496962904930115,
+   "acc": 0.6491228070175439
+  },
+  {
+   "lo": 0.7,
+   "hi": 0.8,
+   "n": 488,
+   "conf": 0.7563020586967468,
+   "acc": 0.7295081967213115
+  },
+  {
+   "lo": 0.8,
+   "hi": 0.9,
+   "n": 938,
+   "conf": 0.8568358421325684,
+   "acc": 0.8603411513859275
+  },
+  {
+   "lo": 0.9,
+   "hi": 0.95,
+   "n": 1113,
+   "conf": 0.9278102517127991,
+   "acc": 0.9245283018867925
+  },
+  {
+   "lo": 0.95,
+   "hi": 0.99,
+   "n": 3653,
+   "conf": 0.976468026638031,
+   "acc": 0.9723514919244457
+  },
+  {
+   "lo": 0.99,
+   "hi": 1,
+   "n": 17613,
+   "conf": 0.9982654452323914,
+   "acc": 0.9973315164934992
+  }
+ ],
+ "coverage": [
+  {
+   "tau": 0.5,
+   "coverage": 0.9963928180602277,
+   "acc": 0.9669297103807354
+  },
+  {
+   "tau": 0.51,
+   "coverage": 0.9949742633648118,
+   "acc": 0.9674121145464174
+  },
+  {
+   "tau": 0.52,
+   "coverage": 0.993028816925384,
+   "acc": 0.9683278233541488
+  },
+  {
+   "tau": 0.53,
+   "coverage": 0.991610262229968,
+   "acc": 0.9690182293795472
+  },
+  {
+   "tau": 0.54,
+   "coverage": 0.9900701171320877,
+   "acc": 0.9698706402488947
+  },
+  {
+   "tau": 0.55,
+   "coverage": 0.9883678514975884,
+   "acc": 0.9709259411137537
+  },
+  {
+   "tau": 0.56,
+   "coverage": 0.9870708872046366,
+   "acc": 0.9714625934138129
+  },
+  {
+   "tau": 0.57,
+   "coverage": 0.9854902119726017,
+   "acc": 0.9719925971622455
+  },
+  {
+   "tau": 0.58,
+   "coverage": 0.9837474162039477,
+   "acc": 0.9728493737640079
+  },
+  {
+   "tau": 0.59,
+   "coverage": 0.9820856807036031,
+   "acc": 0.9733399364450497
+  },
+  {
+   "tau": 0.6,
+   "coverage": 0.9809913670814251,
+   "acc": 0.9737646669971906
+  },
+  {
+   "tau": 0.61,
+   "coverage": 0.9797754630567828,
+   "acc": 0.9742285099693886
+  },
+  {
+   "tau": 0.62,
+   "coverage": 0.9781137275564382,
+   "acc": 0.9747234077818755
+  },
+  {
+   "tau": 0.63,
+   "coverage": 0.9764519920560937,
+   "acc": 0.9754275278100615
+  },
+  {
+   "tau": 0.64,
+   "coverage": 0.9743038949458923,
+   "acc": 0.9762469320687217
+  },
+  {
+   "tau": 0.65,
+   "coverage": 0.9725205690430835,
+   "acc": 0.9769118566367994
+  },
+  {
+   "tau": 0.66,
+   "coverage": 0.970858833542739,
+   "acc": 0.9774985388661601
+  },
+  {
+   "tau": 0.67,
+   "coverage": 0.969440278847323,
+   "acc": 0.9778418830218655
+  },
+  {
+   "tau": 0.68,
+   "coverage": 0.9677785433469784,
+   "acc": 0.9781388726023955
+  },
+  {
+   "tau": 0.69,
+   "coverage": 0.9661978681149435,
+   "acc": 0.9786484332396493
+  },
+  {
+   "tau": 0.7,
+   "coverage": 0.9648198435536821,
+   "acc": 0.9792060491493384
+  },
+  {
+   "tau": 0.71,
+   "coverage": 0.9633202285899566,
+   "acc": 0.979930999663413
+  },
+  {
+   "tau": 0.72,
+   "coverage": 0.9618206136262311,
+   "acc": 0.9803210989844507
+  },
+  {
+   "tau": 0.73,
+   "coverage": 0.9602804685283508,
+   "acc": 0.9807116025830414
+  },
+  {
+   "tau": 0.74,
+   "coverage": 0.9584566124913874,
+   "acc": 0.9811823410013532
+  },
+  {
+   "tau": 0.75,
+   "coverage": 0.9563490455153406,
+   "acc": 0.9817341922359722
+  },
+  {
+   "tau": 0.76,
+   "coverage": 0.9546467798808415,
+   "acc": 0.9821686337777022
+  },
+  {
+   "tau": 0.77,
+   "coverage": 0.9529445142463422,
+   "acc": 0.9826471588975842
+  },
+  {
+   "tau": 0.78,
+   "coverage": 0.950593766465367,
+   "acc": 0.9832011597168926
+  },
+  {
+   "tau": 0.79,
+   "coverage": 0.9484051392210108,
+   "acc": 0.9837606837606837
+  },
+  {
+   "tau": 0.8,
+   "coverage": 0.9450411380861671,
+   "acc": 0.9844319595145173
+  },
+  {
+   "tau": 0.81,
+   "coverage": 0.9420824382928707,
+   "acc": 0.9851144381345723
+  },
+  {
+   "tau": 0.82,
+   "coverage": 0.9395695699752766,
+   "acc": 0.9858510913639893
+  },
+  {
+   "tau": 0.83,
+   "coverage": 0.9362460989745877,
+   "acc": 0.9864502164502165
+  },
+  {
+   "tau": 0.84,
+   "coverage": 0.9334495197179102,
+   "acc": 0.986756979722982
+  },
+  {
+   "tau": 0.85,
+   "coverage": 0.9304908199246139,
+   "acc": 0.9871504486453524
+  },
+  {
+   "tau": 0.86,
+   "coverage": 0.9261540955700563,
+   "acc": 0.9877467069274868
+  },
+  {
+   "tau": 0.87,
+   "coverage": 0.9216957808130345,
+   "acc": 0.9882151180686866
+  },
+  {
+   "tau": 0.88,
+   "coverage": 0.917804887934179,
+   "acc": 0.98887171561051
+  },
+  {
+   "tau": 0.89,
+   "coverage": 0.9129007417014551,
+   "acc": 0.9892559048126442
+  },
+  {
+   "tau": 0.9,
+   "coverage": 0.9070238722490171,
+   "acc": 0.9896331382099289
+  },
+  {
+   "tau": 0.91,
+   "coverage": 0.9002553398451749,
+   "acc": 0.9903205474518278
+  },
+  {
+   "tau": 0.92,
+   "coverage": 0.892797795160702,
+   "acc": 0.991011439985473
+  },
+  {
+   "tau": 0.93,
+   "coverage": 0.8838001053783489,
+   "acc": 0.9918371090525543
+  },
+  {
+   "tau": 0.94,
+   "coverage": 0.8738702225104366,
+   "acc": 0.9924400538008441
+  },
+  {
+   "tau": 0.95,
+   "coverage": 0.861913832934787,
+   "acc": 0.9930405341860247
+  },
+  {
+   "tau": 0.96,
+   "coverage": 0.8452154176630324,
+   "acc": 0.9940059461014673
+  },
+  {
+   "tau": 0.97,
+   "coverage": 0.8215052891825072,
+   "acc": 0.9947210025161577
+  },
+  {
+   "tau": 0.98,
+   "coverage": 0.7842580958942974,
+   "acc": 0.9958139534883721
+  },
+  {
+   "tau": 0.99,
+   "coverage": 0.713857252867507,
+   "acc": 0.9973315164934992
+  }
+ ],
+ "tau": 0.55,
+ "clusters": [
+  {
+   "donor": "patient_101",
+   "cluster": "0",
+   "n": 230,
+   "pred": "CD4 T cells",
+   "conf": 0.9872878789901733,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_101",
+   "cluster": "1",
+   "n": 476,
+   "pred": "CD14+ Monocytes",
+   "conf": 0.9793572425842285,
+   "truth": "CD14+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_101",
+   "cluster": "11",
+   "n": 12,
+   "pred": "CD4 T cells",
+   "conf": 0.975721538066864,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_101",
+   "cluster": "12",
+   "n": 12,
+   "pred": "Dendritic cells",
+   "conf": 0.8356996178627014,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_101",
+   "cluster": "2",
+   "n": 461,
+   "pred": "CD4 T cells",
+   "conf": 0.9377709031105042,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_101",
+   "cluster": "3",
+   "n": 227,
+   "pred": "B cells",
+   "conf": 0.9573549032211304,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_101",
+   "cluster": "4",
+   "n": 149,
+   "pred": "NK cells",
+   "conf": 0.9165215492248535,
+   "truth": "NK cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_101",
+   "cluster": "5",
+   "n": 83,
+   "pred": "CD8 T cells",
+   "conf": 0.5513560175895691,
+   "truth": "CD8 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_101",
+   "cluster": "6",
+   "n": 117,
+   "pred": "CD4 T cells",
+   "conf": 0.9010666012763977,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_101",
+   "cluster": "7",
+   "n": 184,
+   "pred": "FCGR3A+ Monocytes",
+   "conf": 0.9337084293365479,
+   "truth": "FCGR3A+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_101",
+   "cluster": "8",
+   "n": 52,
+   "pred": "Dendritic cells",
+   "conf": 0.8659524917602539,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_101",
+   "cluster": "9",
+   "n": 20,
+   "pred": "B cells",
+   "conf": 0.961249828338623,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1015",
+   "cluster": "0",
+   "n": 439,
+   "pred": "CD4 T cells",
+   "conf": 0.989719808101654,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1015",
+   "cluster": "1",
+   "n": 1577,
+   "pred": "CD14+ Monocytes",
+   "conf": 0.961156964302063,
+   "truth": "CD14+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1015",
+   "cluster": "11",
+   "n": 13,
+   "pred": "CD4 T cells",
+   "conf": 0.9991756081581116,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1015",
+   "cluster": "12",
+   "n": 14,
+   "pred": "Dendritic cells",
+   "conf": 0.9469745755195618,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1015",
+   "cluster": "2",
+   "n": 1139,
+   "pred": "CD4 T cells",
+   "conf": 0.9680390954017639,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1015",
+   "cluster": "3",
+   "n": 729,
+   "pred": "B cells",
+   "conf": 0.9683570265769958,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1015",
+   "cluster": "4",
+   "n": 354,
+   "pred": "NK cells",
+   "conf": 0.8931005597114563,
+   "truth": "NK cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1015",
+   "cluster": "5",
+   "n": 145,
+   "pred": "CD8 T cells",
+   "conf": 0.6345741152763367,
+   "truth": "CD8 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1015",
+   "cluster": "6",
+   "n": 195,
+   "pred": "CD4 T cells",
+   "conf": 0.9731655120849609,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1015",
+   "cluster": "7",
+   "n": 323,
+   "pred": "FCGR3A+ Monocytes",
+   "conf": 0.8671250343322754,
+   "truth": "FCGR3A+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1015",
+   "cluster": "8",
+   "n": 62,
+   "pred": "Dendritic cells",
+   "conf": 0.7658312320709229,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1015",
+   "cluster": "9",
+   "n": 96,
+   "pred": "B cells",
+   "conf": 0.972026526927948,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1016",
+   "cluster": "0",
+   "n": 289,
+   "pred": "CD4 T cells",
+   "conf": 0.9886338114738464,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1016",
+   "cluster": "1",
+   "n": 748,
+   "pred": "CD14+ Monocytes",
+   "conf": 0.973200261592865,
+   "truth": "CD14+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1016",
+   "cluster": "2",
+   "n": 416,
+   "pred": "CD4 T cells",
+   "conf": 0.8238719701766968,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1016",
+   "cluster": "3",
+   "n": 235,
+   "pred": "B cells",
+   "conf": 0.9869306683540344,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1016",
+   "cluster": "4",
+   "n": 188,
+   "pred": "NK cells",
+   "conf": 0.8299403786659241,
+   "truth": "NK cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1016",
+   "cluster": "5",
+   "n": 993,
+   "pred": "CD8 T cells",
+   "conf": 0.8305091857910156,
+   "truth": "CD8 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1016",
+   "cluster": "6",
+   "n": 250,
+   "pred": "CD4 T cells",
+   "conf": 0.9856228232383728,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1016",
+   "cluster": "7",
+   "n": 170,
+   "pred": "FCGR3A+ Monocytes",
+   "conf": 0.9624574780464172,
+   "truth": "FCGR3A+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1016",
+   "cluster": "8",
+   "n": 42,
+   "pred": "Dendritic cells",
+   "conf": 0.7191830277442932,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1016",
+   "cluster": "9",
+   "n": 13,
+   "pred": "B cells",
+   "conf": 0.9852231740951538,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1039",
+   "cluster": "0",
+   "n": 149,
+   "pred": "CD4 T cells",
+   "conf": 0.9844267964363098,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1039",
+   "cluster": "1",
+   "n": 290,
+   "pred": "CD14+ Monocytes",
+   "conf": 0.9777026176452637,
+   "truth": "CD14+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1039",
+   "cluster": "10",
+   "n": 111,
+   "pred": "Megakaryocytes",
+   "conf": 0.970299482345581,
+   "truth": "Megakaryocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1039",
+   "cluster": "12",
+   "n": 14,
+   "pred": "Dendritic cells",
+   "conf": 0.9581825137138367,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1039",
+   "cluster": "2",
+   "n": 245,
+   "pred": "CD4 T cells",
+   "conf": 0.9679593443870544,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1039",
+   "cluster": "3",
+   "n": 60,
+   "pred": "B cells",
+   "conf": 0.9639363884925842,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1039",
+   "cluster": "4",
+   "n": 43,
+   "pred": "NK cells",
+   "conf": 0.8219308853149414,
+   "truth": "NK cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1039",
+   "cluster": "5",
+   "n": 20,
+   "pred": "CD8 T cells",
+   "conf": 0.49096664786338806,
+   "truth": "CD8 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1039",
+   "cluster": "6",
+   "n": 103,
+   "pred": "CD4 T cells",
+   "conf": 0.9963378310203552,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1039",
+   "cluster": "7",
+   "n": 40,
+   "pred": "FCGR3A+ Monocytes",
+   "conf": 0.9320672154426575,
+   "truth": "FCGR3A+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1039",
+   "cluster": "8",
+   "n": 14,
+   "pred": "Dendritic cells",
+   "conf": 0.9709392786026001,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_107",
+   "cluster": "0",
+   "n": 108,
+   "pred": "CD4 T cells",
+   "conf": 0.9844218492507935,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_107",
+   "cluster": "1",
+   "n": 389,
+   "pred": "CD14+ Monocytes",
+   "conf": 0.9888112545013428,
+   "truth": "CD14+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_107",
+   "cluster": "2",
+   "n": 214,
+   "pred": "CD4 T cells",
+   "conf": 0.9687204957008362,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_107",
+   "cluster": "3",
+   "n": 85,
+   "pred": "B cells",
+   "conf": 0.9494609832763672,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_107",
+   "cluster": "4",
+   "n": 77,
+   "pred": "NK cells",
+   "conf": 0.9511901140213013,
+   "truth": "NK cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_107",
+   "cluster": "5",
+   "n": 18,
+   "pred": "CD8 T cells",
+   "conf": 0.48636531829833984,
+   "truth": "CD8 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_107",
+   "cluster": "6",
+   "n": 50,
+   "pred": "CD4 T cells",
+   "conf": 0.9972887635231018,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_107",
+   "cluster": "7",
+   "n": 44,
+   "pred": "FCGR3A+ Monocytes",
+   "conf": 0.9288005232810974,
+   "truth": "FCGR3A+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_107",
+   "cluster": "8",
+   "n": 28,
+   "pred": "Dendritic cells",
+   "conf": 0.8236063718795776,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_107",
+   "cluster": "9",
+   "n": 19,
+   "pred": "B cells",
+   "conf": 0.9786211252212524,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1244",
+   "cluster": "0",
+   "n": 1246,
+   "pred": "CD4 T cells",
+   "conf": 0.9894817471504211,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1244",
+   "cluster": "1",
+   "n": 718,
+   "pred": "CD14+ Monocytes",
+   "conf": 0.984057605266571,
+   "truth": "CD14+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1244",
+   "cluster": "11",
+   "n": 16,
+   "pred": "CD4 T cells",
+   "conf": 0.9962226748466492,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1244",
+   "cluster": "2",
+   "n": 622,
+   "pred": "CD4 T cells",
+   "conf": 0.9734847545623779,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1244",
+   "cluster": "3",
+   "n": 165,
+   "pred": "B cells",
+   "conf": 0.9601513743400574,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1244",
+   "cluster": "4",
+   "n": 209,
+   "pred": "NK cells",
+   "conf": 0.912388265132904,
+   "truth": "NK cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1244",
+   "cluster": "5",
+   "n": 41,
+   "pred": "CD8 T cells",
+   "conf": 0.44164061546325684,
+   "truth": "CD8 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1244",
+   "cluster": "6",
+   "n": 116,
+   "pred": "CD4 T cells",
+   "conf": 0.9867547154426575,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1244",
+   "cluster": "7",
+   "n": 58,
+   "pred": "FCGR3A+ Monocytes",
+   "conf": 0.9160312414169312,
+   "truth": "FCGR3A+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1244",
+   "cluster": "8",
+   "n": 90,
+   "pred": "Dendritic cells",
+   "conf": 0.8307390213012695,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1244",
+   "cluster": "9",
+   "n": 49,
+   "pred": "B cells",
+   "conf": 0.9844186902046204,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1256",
+   "cluster": "0",
+   "n": 1350,
+   "pred": "CD4 T cells",
+   "conf": 0.991243302822113,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1256",
+   "cluster": "1",
+   "n": 789,
+   "pred": "CD14+ Monocytes",
+   "conf": 0.9791836738586426,
+   "truth": "CD14+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1256",
+   "cluster": "11",
+   "n": 22,
+   "pred": "CD4 T cells",
+   "conf": 0.9952638745307922,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1256",
+   "cluster": "12",
+   "n": 23,
+   "pred": "Dendritic cells",
+   "conf": 0.7947545051574707,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1256",
+   "cluster": "2",
+   "n": 464,
+   "pred": "CD4 T cells",
+   "conf": 0.9699801206588745,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1256",
+   "cluster": "3",
+   "n": 387,
+   "pred": "B cells",
+   "conf": 0.9683350324630737,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1256",
+   "cluster": "4",
+   "n": 428,
+   "pred": "NK cells",
+   "conf": 0.8952203989028931,
+   "truth": "NK cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1256",
+   "cluster": "5",
+   "n": 246,
+   "pred": "CD8 T cells",
+   "conf": 0.7934194803237915,
+   "truth": "CD8 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1256",
+   "cluster": "6",
+   "n": 206,
+   "pred": "CD4 T cells",
+   "conf": 0.988007128238678,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1256",
+   "cluster": "7",
+   "n": 104,
+   "pred": "FCGR3A+ Monocytes",
+   "conf": 0.9201335310935974,
+   "truth": "FCGR3A+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1256",
+   "cluster": "8",
+   "n": 59,
+   "pred": "Dendritic cells",
+   "conf": 0.7496673464775085,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1256",
+   "cluster": "9",
+   "n": 50,
+   "pred": "B cells",
+   "conf": 0.9642137289047241,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1488",
+   "cluster": "0",
+   "n": 1897,
+   "pred": "CD4 T cells",
+   "conf": 0.985870897769928,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1488",
+   "cluster": "1",
+   "n": 710,
+   "pred": "CD14+ Monocytes",
+   "conf": 0.9699557423591614,
+   "truth": "CD14+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1488",
+   "cluster": "11",
+   "n": 34,
+   "pred": "CD4 T cells",
+   "conf": 0.9724778532981873,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1488",
+   "cluster": "12",
+   "n": 32,
+   "pred": "Dendritic cells",
+   "conf": 0.9445741772651672,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1488",
+   "cluster": "2",
+   "n": 574,
+   "pred": "CD4 T cells",
+   "conf": 0.9766928553581238,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1488",
+   "cluster": "3",
+   "n": 448,
+   "pred": "B cells",
+   "conf": 0.9628437161445618,
+   "truth": "B cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1488",
+   "cluster": "4",
+   "n": 268,
+   "pred": "NK cells",
+   "conf": 0.8867039680480957,
+   "truth": "NK cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1488",
+   "cluster": "5",
+   "n": 75,
+   "pred": "CD8 T cells",
+   "conf": 0.7065531015396118,
+   "truth": "CD8 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1488",
+   "cluster": "6",
+   "n": 240,
+   "pred": "CD4 T cells",
+   "conf": 0.9926166534423828,
+   "truth": "CD4 T cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1488",
+   "cluster": "7",
+   "n": 166,
+   "pred": "FCGR3A+ Monocytes",
+   "conf": 0.9495154619216919,
+   "truth": "FCGR3A+ Monocytes",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1488",
+   "cluster": "8",
+   "n": 71,
+   "pred": "Dendritic cells",
+   "conf": 0.9663246870040894,
+   "truth": "Dendritic cells",
+   "purity": 1.0
+  },
+  {
+   "donor": "patient_1488",
+   "cluster": "9",
+   "n": 61,
+   "pred": "B cells",
+   "conf": 0.9594340920448303,
+   "truth": "B cells",
+   "purity": 1.0
+  }
+ ],
+ "confusion": {
+  "labels": [
+   "B cells",
+   "CD14+ Monocytes",
+   "CD4 T cells",
+   "CD8 T cells",
+   "Dendritic cells",
+   "FCGR3A+ Monocytes",
+   "Megakaryocytes",
+   "NK cells"
+  ],
+  "matrix": [
+   [
+    2602,
+    1,
+    45,
+    0,
+    1,
+    0,
+    2,
+    0
+   ],
+   [
+    1,
+    5624,
+    10,
+    0,
+    14,
+    43,
+    1,
+    4
+   ],
+   [
+    19,
+    5,
+    11078,
+    117,
+    1,
+    0,
+    6,
+    12
+   ],
+   [
+    1,
+    1,
+    128,
+    1315,
+    0,
+    0,
+    2,
+    174
+   ],
+   [
+    2,
+    58,
+    4,
+    1,
+    463,
+    1,
+    0,
+    0
+   ],
+   [
+    2,
+    62,
+    1,
+    0,
+    0,
+    1023,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    3,
+    0,
+    0,
+    1,
+    127,
+    0
+   ],
+   [
+    3,
+    0,
+    11,
+    115,
+    0,
+    1,
+    0,
+    1586
+   ]
+  ]
+ },
+ "genes_exported": 2426
+}

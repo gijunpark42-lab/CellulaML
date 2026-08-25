@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { summarize, type DatasetMeta } from "../lib/h5ad/types";
 import type { MarkerResult } from "../lib/stats/markers";
+import type { AnnotationResult } from "../lib/annotate/model";
 import type { WorkerRequest, WorkerResponse } from "../workers/parser.worker";
 import DropZone from "./DropZone";
 import Viewer from "./Viewer";
@@ -24,7 +25,9 @@ export default function App() {
   const geneReq = useRef(0);
   const geneResolvers = useRef(new Map<number, (v: Float32Array) => void>());
   const markerResolvers = useRef(new Map<number, (r: MarkerResult) => void>());
+  const annotResolvers = useRef(new Map<number, (r: AnnotationResult | null, err?: string) => void>());
 
+  const spawnRef = useRef<() => void>(() => {});
   /** (Re)create the parser worker. Called on mount and after a worker crash. */
   const spawnWorker = useCallback(() => {
     workerRef.current?.terminate();
@@ -34,11 +37,14 @@ export default function App() {
       setStatus({ kind: "error", name: "parser", message: `internal error (${e.message}); please reopen the file` });
       geneResolvers.current.clear();
       markerResolvers.current.clear();
-      spawnWorker();
+      annotResolvers.current.clear();
+      spawnRef.current();
     };
     workerRef.current = w;
     return w;
   }, []);
+
+  spawnRef.current = spawnWorker;
 
   useEffect(() => {
     spawnWorker();
@@ -72,6 +78,12 @@ export default function App() {
       if (r.type === "gene") {
         geneResolvers.current.get(r.requestId)?.(r.values);
         geneResolvers.current.delete(r.requestId);
+        return;
+      }
+      if (r.type === "annotate") {
+        console.log(`[cellulaML] annotate: ${r.result ? `${r.result.clusters.length} clusters, ${r.result.genesMatched} genes matched` : r.error}, ${r.ms.toFixed(0)} ms`);
+        annotResolvers.current.get(r.requestId)?.(r.result, r.error);
+        annotResolvers.current.delete(r.requestId);
         return;
       }
       if (r.type === "markers") {
@@ -116,6 +128,17 @@ export default function App() {
     });
   }, []);
 
+  const fetchAnnotation = useCallback((modelUrl: string, codes: Int32Array, nCats: number) => {
+    return new Promise<AnnotationResult>((resolve, reject) => {
+      const w = workerRef.current;
+      if (!w) return reject(new Error("worker not ready"));
+      const requestId = ++geneReq.current;
+      annotResolvers.current.set(requestId, (r, err) => (r ? resolve(r) : reject(new Error(err ?? "annotation failed"))));
+      const req: WorkerRequest = { type: "annotate", modelUrl, codes: codes.slice(), nCats, requestId };
+      w.postMessage(req);
+    });
+  }, []);
+
   const loadDemo = useCallback(async () => {
     const res = await fetch("/demo/pbmc3k_small.h5ad");
     const blob = await res.blob();
@@ -129,6 +152,7 @@ export default function App() {
         fileName={status.name}
         fetchGene={fetchGene}
         fetchMarkers={fetchMarkers}
+        fetchAnnotation={fetchAnnotation}
         onReset={() => setStatus({ kind: "idle" })}
       />
     );

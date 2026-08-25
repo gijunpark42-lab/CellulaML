@@ -1,0 +1,4 @@
+.venv/
+__pycache__/
+# 38 MB, re-download: curl -L -o data/kang_2018.h5ad https://api.figshare.com/v2/file/download/34464122
+data/kang_2018.h5ad

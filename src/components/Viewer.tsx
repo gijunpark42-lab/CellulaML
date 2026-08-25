@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { DatasetMeta } from "../lib/h5ad/types";
 import type { MarkerResult } from "../lib/stats/markers";
+import type { AnnotationResult } from "../lib/annotate/model";
 import {
   colorsFromScalar,
   scalarScale,
@@ -24,14 +25,24 @@ interface Props {
   fileName: string;
   fetchGene: (index: number) => Promise<Float32Array>;
   fetchMarkers: (selected: Uint32Array) => Promise<MarkerResult>;
+  fetchAnnotation: (modelUrl: string, codes: Int32Array, nCats: number) => Promise<AnnotationResult>;
   onReset: () => void;
 }
+
+const MODEL_URL = "/models/pbmc_v2.json";
+
+type AnnotState =
+  | { kind: "idle" }
+  | { kind: "running" }
+  | { kind: "error"; message: string }
+  | { kind: "done"; result: AnnotationResult };
 
 export default function Viewer({
   meta,
   fileName,
   fetchGene,
   fetchMarkers,
+  fetchAnnotation,
   onReset,
 }: Props) {
   const [embName, setEmbName] = useState(() =>
@@ -47,6 +58,9 @@ export default function Viewer({
   // only use the fetched column while it matches the selected gene (stale data is ignored, not cleared)
   const geneData = gene && fetched?.name === gene ? fetched : null;
 
+  const [annot, setAnnot] = useState<{ labelName: string; state: AnnotState }>({ labelName: "", state: { kind: "idle" } });
+  const [colorByPred, setColorByPred] = useState(false);
+  const [focusCluster, setFocusCluster] = useState<number | null>(null);
   const [lasso, setLasso] = useState(false);
   const [selected, setSelected] = useState<Uint32Array | null>(null);
   const [markers, setMarkers] = useState<{
@@ -82,6 +96,21 @@ export default function Viewer({
     return () => window.removeEventListener("keydown", onKey);
   }, [lasso]);
 
+  // annotation belongs to one label set; switching label sets resets it
+  const annotState: AnnotState = annot.labelName === labelName ? annot.state : { kind: "idle" };
+  const annotation = annotState.kind === "done" ? annotState.result : null;
+  const runAnnotation = () => {
+    if (!label) return;
+    const name = label.name;
+    setAnnot({ labelName: name, state: { kind: "running" } });
+    fetchAnnotation(MODEL_URL, label.codes, label.categories.length)
+      .then((result) => {
+        setAnnot({ labelName: name, state: { kind: "done", result } });
+        setColorByPred(true);
+      })
+      .catch((err: Error) => setAnnot({ labelName: name, state: { kind: "error", message: err.message } }));
+  };
+
   const onLasso = (idx: Uint32Array) => {
     setSelected(idx.length > 0 ? idx : null);
     setLasso(false);
@@ -107,6 +136,16 @@ export default function Viewer({
     else if (label)
       base = colorsFromCodes(label.codes, label.categories.length);
     else base = colorsFromCodes(new Int32Array(meta.nCells), 1); // single color
+    if (focusCluster !== null && label && !selected) {
+      const out = new Float32Array(base.length);
+      for (let i = 0; i < label.codes.length; i++) {
+        const f = label.codes[i] === focusCluster ? 1 : 0.15;
+        out[3 * i] = base[3 * i] * f;
+        out[3 * i + 1] = base[3 * i + 1] * f;
+        out[3 * i + 2] = base[3 * i + 2] * f;
+      }
+      return out;
+    }
     if (!selected || selected.length === 0) return base;
     // dim everything outside the selection
     const out = new Float32Array(base.length);
@@ -117,7 +156,7 @@ export default function Viewer({
       out[3 * i + 2] = base[3 * i + 2];
     }
     return out;
-  }, [geneData, label, meta.nCells, selected]);
+  }, [geneData, label, meta.nCells, selected, annotation, colorByPred, focusCluster]);
 
   const counts = useMemo(() => {
     if (!label) return [];
@@ -174,14 +213,28 @@ export default function Viewer({
           markers={markerResult}
           computing={computing}
           legend={
-            label && !geneData
-              ? label.categories.map((cat, i) => ({
-                  name: cat,
-                  color: categoryColor(i),
-                  count: counts[i],
-                }))
-              : []
+            geneData
+              ? []
+              : annotation && colorByPred
+                ? annotation.classes.map((cat, i) => ({
+                    name: cat,
+                    color: categoryColor(i),
+                    count: annotation.pred.reduce((a, p) => a + (p === i ? 1 : 0), 0),
+                  }))
+                : label
+                  ? label.categories.map((cat, i) => ({ name: cat, color: categoryColor(i), count: counts[i] }))
+                  : []
           }
+          annotation={{
+            clusterName: label?.name ?? "",
+            clusterCategories: label?.categories ?? [],
+            state: annotState,
+            colorByPrediction: colorByPred,
+            onRun: runAnnotation,
+            onToggleColor: () => setColorByPred((v) => !v),
+            onFocusCluster: setFocusCluster,
+            focused: focusCluster,
+          }}
           onReset={onReset}
         />
       </ErrorBoundary>

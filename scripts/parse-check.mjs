@@ -13,7 +13,7 @@ FS.writeFile(tmp, new Uint8Array(readFileSync(path)));
 const f = new h5wasm.File(tmp, "r");
 const t0 = performance.now();
 const d = parseH5ad(f);
-console.log(summarize({ ...d, hasX: !!d.X }), `(${(performance.now() - t0).toFixed(0)} ms)`);
+console.log(summarize({ ...d, hasX: !!d.X, hasRaw: !!d.raw }), `(${(performance.now() - t0).toFixed(0)} ms)`);
 if (d.X) console.log("X:", d.X.format, d.X.nRows, "x", d.X.nCols, "data.length", d.X.data.length);
 console.log("genes:", d.geneNames.slice(0, 5), "cells:", d.cellIds.slice(0, 2));
 for (const l of d.labels) console.log("label", l.name, l.categories.slice(0, 10));

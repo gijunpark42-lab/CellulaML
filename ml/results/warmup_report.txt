@@ -1,0 +1,16 @@
+                              precision    recall  f1-score   support
+
+              CD14+ Monocyte       0.88      0.90      0.89        39
+                     CD19+ B       0.97      1.00      0.98        29
+                       CD34+       1.00      1.00      1.00         4
+             CD4+/CD25 T Reg       0.58      0.90      0.71        20
+  CD4+/CD45RA+/CD25- Naive T       1.00      0.50      0.67         2
+         CD4+/CD45RO+ Memory       0.00      0.00      0.00         6
+                    CD56+ NK       0.82      1.00      0.90         9
+            CD8+ Cytotoxic T       0.62      0.62      0.62        16
+CD8+/CD45RA+ Naive Cytotoxic       0.73      0.62      0.67        13
+                   Dendritic       0.94      0.86      0.90        72
+
+                    accuracy                           0.84       210
+                   macro avg       0.75      0.74      0.73       210
+                weighted avg       0.83      0.84      0.83       210

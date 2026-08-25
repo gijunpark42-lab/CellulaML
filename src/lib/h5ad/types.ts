@@ -36,6 +36,12 @@ export interface DenseMatrix {
 
 export type ExpressionMatrix = SparseMatrix | DenseMatrix;
 
+/** AnnData .raw: usually the log-normalized matrix over all genes, saved before scaling/HVG subsetting. */
+export interface RawMatrix {
+  X: ExpressionMatrix;
+  geneNames: string[];
+}
+
 export interface Dataset {
   nCells: number;
   nGenes: number;
@@ -45,12 +51,14 @@ export interface Dataset {
   embeddings: Embedding[];
   /** null when X is absent or unreadable */
   X: ExpressionMatrix | null;
+  /** null when the file has no .raw */
+  raw: RawMatrix | null;
   /** non-fatal problems encountered while parsing, for display */
   warnings: string[];
 }
 
 /** What the worker sends back to the UI: everything except X (which stays in the worker). */
-export type DatasetMeta = Omit<Dataset, "X"> & { hasX: boolean };
+export type DatasetMeta = Omit<Dataset, "X" | "raw"> & { hasX: boolean; hasRaw: boolean };
 
 export function summarize(d: DatasetMeta): string {
   const labels = d.labels.map((l) => `${l.name}(${l.categories.length})`).join(", ");
@@ -58,6 +66,6 @@ export function summarize(d: DatasetMeta): string {
   return (
     `${d.nCells} cells x ${d.nGenes} genes, ` +
     `${d.labels.length} label columns [${labels}], ` +
-    `${d.embeddings.length} embeddings [${embs}], X: ${d.hasX ? "yes" : "no"}`
+    `${d.embeddings.length} embeddings [${embs}], X: ${d.hasX ? "yes" : "no"}, raw: ${d.hasRaw ? "yes" : "no"}`
   );
 }

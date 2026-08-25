@@ -1,0 +1,161 @@
+cells 12315, genes 15706, donors 8, classes 8  (prep 2s)
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+C=0.03: grouped-CV logloss 0.166  acc 0.954  (33s)
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+C=0.1: grouped-CV logloss 0.120  acc 0.963  (100s)
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+C=0.3: grouped-CV logloss 0.114  acc 0.963  (167s)
+C chosen: 0.3
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+LODO patient_101: n=858 acc 0.962 genes used 1832 (196s)
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+LODO patient_1015: n=2738 acc 0.957 genes used 1663 (219s)
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+LODO patient_1016: n=1723 acc 0.926 genes used 1768 (245s)
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+LODO patient_1039: n=461 acc 0.978 genes used 1873 (281s)
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+LODO patient_107: n=517 acc 0.973 genes used 1873 (315s)
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+LODO patient_1244: n=1879 acc 0.976 genes used 1871 (344s)
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+LODO patient_1256: n=2108 acc 0.967 genes used 1823 (369s)
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+LODO patient_1488: n=2031 acc 0.983 genes used 1852 (394s)
+
+OOF over all donors: accuracy 0.9634, balanced accuracy 0.9192, log-loss 0.1040
+temperature T = 1.002   ECE raw 0.0047 -> calibrated 0.0046
+log-loss raw 0.1040 -> calibrated 0.1040
+  conf [0.00,0.50)  n=    51  mean conf 0.450  acc 0.549
+  conf [0.50,0.60)  n=   178  mean conf 0.548  acc 0.562
+  conf [0.60,0.70)  n=   219  mean conf 0.656  acc 0.580
+  conf [0.70,0.80)  n=   269  mean conf 0.751  acc 0.747
+  conf [0.80,0.90)  n=   452  mean conf 0.854  acc 0.825
+  conf [0.90,0.95)  n=   537  mean conf 0.929  acc 0.912
+  conf [0.95,0.99)  n=  1717  mean conf 0.976  acc 0.974
+  conf [0.99,1.00)  n=  8892  mean conf 0.998  acc 0.998
+
+abstention threshold tau = 0.59 (smallest with accuracy >= 0.97 among accepted): coverage 0.983
+
+cluster-level (77 donor x cluster groups): accuracy 1.000; with abstention at tau: coverage 0.961, accuracy of accepted 1.000
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1429: UserWarning: Inconsistent values: penalty=l1 with l1_ratio=0.0. penalty is deprecated. Please use l1_ratio only.
+  warnings.warn(
+C:\Users\calif\OneDrive\Desktop\Bioinformatics\tool-project\ml\.venv\Lib\site-packages\sklearn\linear_model\_sag.py:348: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  warnings.warn(
+
+exported model: 1905 genes x 8 classes, 0.19 MB  (total 425s)
+  B cells              evidence: CD79A, HLA-DRA, MS4A1, ID3, CD83, HLA-DQA1
+  CD14+ Monocytes      evidence: C15orf48, TYROBP, TIMP1, CCL2, S100A8, LGALS3
+  CD4 T cells          evidence: TRAT1, ITM2A, FYN, SELL, CD3G, IL32
+  CD8 T cells          evidence: CCL5, GZMH, NKG7, GNLY, IL32, CST7
+  Dendritic cells      evidence: HLA-DQA1, LYZ, CST3, IL1R2, CD9, HLA-DRA
+  FCGR3A+ Monocytes    evidence: FCGR3A, MS4A7, VMO1, CST3, PLAC8, CTSC
+  Megakaryocytes       evidence: HBA1, HBA2, HBB, IFI27
+  NK cells             evidence: GNLY, GZMB, NKG7, CLIC3, PRF1, GZMA
