@@ -2,7 +2,7 @@
 
 Drop an `.h5ad` file, see your single-cell analysis instantly, and get every cluster labeled with a **calibrated probability, evidence genes, and an honest "unsure"** — all in the browser. No server, no upload, no questions asked.
 
-**Live demo:** _add your Vercel URL here_
+**Live demo:** https://cellulaml.vercel.app/
 
 ![cellulaML annotating pbmc3k](docs/screenshot.jpg)
 
